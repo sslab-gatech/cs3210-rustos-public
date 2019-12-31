@@ -1,0 +1,9 @@
+#!/bin/bash
+
+{
+  if which lsb_release &>/dev/null ; then
+    lsb_release -i -s 
+  else
+    head -1 /etc/issue | cut -d' ' -f1
+  fi
+} | tr [:upper:] [:lower:]
