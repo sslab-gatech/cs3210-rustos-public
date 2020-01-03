@@ -13,6 +13,7 @@ PROJ_PKG=(build-essential
      tar
      screen
      clang-8
+     linux-image-extra-virtual
      qemu-system-arm)
 QEMU_PKG=(pkg-config libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev)
 
