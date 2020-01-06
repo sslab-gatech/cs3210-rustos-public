@@ -48,7 +48,11 @@ def load_firmware():
 def load_kernel():
     assert(len(sys.argv) >= 2)
 
+    # check if it's just a directory
     pn = os.path.abspath(sys.argv[1])
+    if os.path.isdir(pn):
+        pn = os.path.join(pn, "kernel8.img")
+
     if not os.path.exists(pn):
         print("[!] %s doesn't exist" % pn)
         exit(1)
@@ -107,8 +111,10 @@ def copy_to(src, name, dst):
         print("[!] %s is up-to-date" % dst)
 
 if __name__ == '__main__':
-    if len(sys.argv) == 1:
-        print("[!] %s [kernel.{bin|elf}] [sdcard directory]?")
+    if len(sys.argv) == 1 \
+       or "-h" in sys.argv \
+       or "--help" in sys.argv:
+        print("[!] %s [kernel.{bin|elf}] [sdcard directory]?" % sys.argv[0])
         print(" NOTE. if the sdcard directory is not provided,")
         print("       we will select the directory previously used")
         exit(1)
