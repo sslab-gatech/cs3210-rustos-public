@@ -13,9 +13,8 @@ PROJ_PKG=(build-essential
      tar
      screen
      clang-8
-     linux-image-extra-virtual
-     qemu-system-arm)
-QEMU_PKG=(pkg-config libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev)
+     linux-image-extra-virtual)
+QEMU_DEP=(libglib2.0-dev libpixman-1-dev zlib1g-dev)
 
 # install pkgs
 if [[ $($BIN/get-dist) == "ubuntu" ]]; then
@@ -23,7 +22,7 @@ if [[ $($BIN/get-dist) == "ubuntu" ]]; then
 
     sudo apt update
     sudo apt install -y ${PROJ_PKG[*]}
-    sudo apt install -y ${QEMU_PKG[*]}
+    sudo apt install -y ${QEMU_DEP[*]}
 fi
 
 # install rustup
@@ -38,7 +37,7 @@ fi
 rustup default $VER
 rustup component add rust-src llvm-tools-preview clippy
 
-cargo install cargo-xbuild
-cargo install cargo-binutils
+cargo install -f cargo-xbuild
+cargo install -f cargo-binutils
 
 echo "[!] Please add '$HOME/.cargo/bin' in your PATH"
