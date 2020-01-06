@@ -1,0 +1,9 @@
+[package]
+name = "blinky"
+version = "0.1.0"
+edition = "2018"
+
+[package.metadata.cargo-xbuild]
+memcpy = true
+
+[dependencies]
