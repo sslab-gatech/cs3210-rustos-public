@@ -2,7 +2,6 @@
 
 // I AM NOT DONE
 
-// What traits does this struct need to derive?
 #[derive(Debug)]
 struct MyType(usize);
 

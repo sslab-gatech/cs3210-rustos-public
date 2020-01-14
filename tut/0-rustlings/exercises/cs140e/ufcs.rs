@@ -5,20 +5,16 @@
 struct Dummy;
 
 pub trait Foo {
-    fn foo(&self) -> usize {
-        1
-    }
+    fn foo(&self) -> usize { 1 }
 }
 
 pub trait FooToo {
-    fn foo(&self) -> usize {
-        2
-    }
+    fn foo(&self) -> usize { 2 }
 }
 
-impl Foo for Dummy {}
+impl Foo for Dummy { }
 
-impl FooToo for Dummy {}
+impl FooToo for Dummy { }
 
 #[test]
 fn ufcs() {

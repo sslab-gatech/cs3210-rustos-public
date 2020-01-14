@@ -2,20 +2,9 @@
 
 // I AM NOT DONE
 
-#[derive(Default)]
 struct Builder {
     string: Option<String>,
     number: Option<usize>,
-}
-
-impl Builder {
-    // fn string(...
-
-    // fn number(...
-}
-
-impl ToString for Builder {
-    // Implement the trait
 }
 
 // Do not modify this function.
@@ -45,7 +34,9 @@ fn builder() {
 
     assert_eq!(b, "bye now! 200");
 
-    let c = Builder::default().string("heap!".to_owned()).to_string();
+    let c = Builder::default()
+        .string("heap!".to_owned())
+        .to_string();
 
     assert_eq!(c, "heap!");
 }

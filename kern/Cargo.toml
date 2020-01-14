@@ -1,0 +1,21 @@
+[package]
+name = "kernel"
+version = "0.1.0"
+authors = [
+    "Sergio Benitez <sb@sergio.bz>",
+    "Taesoo Kim <taesoo@gatech.edu>",
+    "Yechan Bae <yechan@gatech.edu>",
+    "Sujin Park <sujin.park@gatech.edu>"
+]
+edition = "2018"
+
+[package.metadata.cargo-xbuild]
+memcpy = true
+
+[dependencies]
+pi = { path = "../lib/pi" }
+shim = { path = "../lib/shim", features = ["no_std"] }
+stack-vec = { path = "../lib/stack-vec/" }
+
+[dev-dependencies]
+shim = { path = "../lib/shim"}

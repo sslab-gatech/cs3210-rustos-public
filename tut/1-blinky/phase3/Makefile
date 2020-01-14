@@ -25,7 +25,7 @@ clean:
 	rm -f *.o *.bin *.elf
 
 install: blinky.elf
-	@install-kernel.py $<
+	$(ROOT)/bin/install-kernel.py $<
 
 objdump:
 	llvm-objdump -d -C blinky.elf

@@ -548,6 +548,18 @@ returning an `Ok` result if those checks determine that everything is... okay :)
 # STANDARD LIBRARY TYPES
 
 [[exercises]]
+name = "arc1"
+path = "exercises/iterators/arc1.rs"
+mode = "compile"
+hint = """
+Make `shared_numbers` be an `Arc` from the numbers vector. Then, in order
+to avoid creating a copy of `numbers`, you'll need to create `child_numbers`
+inside the loop but still in the main thread.
+
+`child_numbers` should be a clone of the Arc of the numbers instead of a
+thread-local copy of the numbers."""
+
+[[exercises]]
 name = "iterators2"
 path = "exercises/iterators/iterators2.rs"
 mode = "test"
@@ -643,6 +655,12 @@ mode = "compile"
 hint = "No hints this time ;)"
 
 [[exercises]]
+name = "const"
+path = "exercises/cs140e/const.rs"
+mode = "compile"
+hint = "No hints this time ;)"
+
+[[exercises]]
 name = "borrow-1"
 path = "exercises/cs140e/borrow-1.rs"
 mode = "compile"
@@ -657,6 +675,12 @@ hint = "No hints this time ;)"
 [[exercises]]
 name = "derive"
 path = "exercises/cs140e/derive.rs"
+mode = "compile"
+hint = "No hints this time ;)"
+
+[[exercises]]
+name = "feature-1"
+path = "exercises/cs140e/feature-1.rs"
 mode = "compile"
 hint = "No hints this time ;)"
 

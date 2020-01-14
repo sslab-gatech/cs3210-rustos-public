@@ -2,11 +2,10 @@
 
 // I AM NOT DONE
 
-// What traits does this struct need to derive?
 enum Duration {
     MilliSeconds(u64),
     Seconds(u32),
-    Minutes(u16),
+    Minutes(u16)
 }
 
 pub fn main() {
