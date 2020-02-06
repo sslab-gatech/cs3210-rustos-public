@@ -1,3 +1,9 @@
 target/
 build/
 TAGS
+
+# Remove Cargo.lock from gitignore if creating an executable, leave it for libraries
+# More information here http://doc.crates.io/guide.html#cargotoml-vs-cargolock
+lib/**/Cargo.lock
+
+ext/fat32-imgs/**.fat32.img
