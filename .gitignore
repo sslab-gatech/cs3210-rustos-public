@@ -6,4 +6,4 @@ TAGS
 # More information here http://doc.crates.io/guide.html#cargotoml-vs-cargolock
 lib/**/Cargo.lock
 
-ext/fat32-imgs/**.fat32.img
+ext/fat32-imgs/*.fat32.img
