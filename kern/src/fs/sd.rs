@@ -17,7 +17,8 @@ extern "C" {
 
     /// Reads sector `n` (512 bytes) from the SD card and writes it to `buffer`.
     /// It is undefined behavior if `buffer` does not point to at least 512
-    /// bytes of memory.
+    /// bytes of memory. Also, the caller of this function should make sure that
+    /// `buffer` is at least 4-byte aligned.
     ///
     /// On success, returns the number of bytes read: a positive number.
     ///
