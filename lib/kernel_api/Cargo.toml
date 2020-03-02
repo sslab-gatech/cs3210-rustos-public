@@ -1,0 +1,23 @@
+[package]
+name = "kernel_api"
+version = "0.1.0"
+authors = [
+    "Taesoo Kim <taesoo@gatech.edu>",
+    "Yechan Bae <yechan@gatech.edu>",
+    "Sujin Park <sujin.park@gatech.edu>",
+    "Mansour Alharthi <mansourah@gatech.edu>"
+]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+shim = { path = "../../lib/shim", features = ["no_std"] }
+
+[dev-dependencies]
+shim = { path = "../../lib/shim" }
+
+[features]
+default = ["user-space"]
+
+"user-space" = []

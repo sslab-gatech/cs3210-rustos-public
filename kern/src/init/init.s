@@ -80,23 +80,12 @@ switch_to_el1:
     // change execution level to EL1 (ref: C5.2.19)
     mov     x2, #0x3c5
     msr     SPSR_EL2, x2
+    
     // FIXME: Return to EL1 at `set_stack`.
 
 set_stack:
     // set the current stack pointer
     mov     sp, x1
-
-// zero_bss:
-//     // load the start address and number of bytes in BSS section
-//     ldr     x1, =__bss_start
-//     ldr     x2, =__bss_length
-
-// zero_bss_loop:
-//     // zero out the BSS section, 64-bits at a time
-//     cbz     x2, go_kmain
-//     str     xzr, [x1], #8
-//     sub     x2, x2, #8
-//     cbnz    x2, zero_bss_loop
 
 go_kmain:
     // jump to kmain, which shouldn't return. halt if it does
@@ -111,15 +100,6 @@ context_restore:
     // FIXME: Restore the context from the stack.
 
     ret
-
-// #define HANDLER(source, kind) \
-//     .align 7; \
-//     stp     lr, x0, [SP, #-16]!; \
-//     mov     x0, ##source; \
-//     movk    x0, ##kind, LSL #16; \
-//     bl      context_save; \
-//     ldp     lr, x0, [SP], #16; \
-//     eret
 
 .align 11
 _vectors:

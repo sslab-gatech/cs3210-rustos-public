@@ -1,12 +1,12 @@
 SECTIONS {
-  . = 0x4000000; /* bootloader start; leave ~64MiB free */
+  . = 0xffffffffc0000000;
 
   /* start of the binary */
   __text_beg = .;
 
   .text : {
-      *(.text.init)
-      *(.text .text.* .gnu.linkonce.t*)
+        *(.text._start)
+        *(.text .text.* .gnu.linkonce.t*)
   }
 
   .rodata : {

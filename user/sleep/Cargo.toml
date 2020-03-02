@@ -1,0 +1,20 @@
+[package]
+name = "sleep"
+version = "0.1.0"
+authors = [
+    "Sergio Benitez <sb@sergio.bz>",
+    "Taesoo Kim <taesoo@gatech.edu>",
+    "Yechan Bae <yechan@gatech.edu>",
+    "Sujin Park <sujin.park@gatech.edu>",
+    "Mansour Alharthi <mansourah@gatech.edu>"
+]
+edition = "2018"
+
+[package.metadata.cargo-xbuild]
+memcpy = true
+
+[dependencies]
+aarch64 = { path = "../../lib/aarch64/" }
+
+[dev-dependencies]
+shim = { path = "../../lib/shim", features = ["alloc"] }

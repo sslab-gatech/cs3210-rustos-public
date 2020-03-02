@@ -1,0 +1,8 @@
+[build]
+target = "aarch64-unknown-none"
+
+[target.aarch64-unknown-none]
+rustflags = [
+    "-C", "target-cpu=cortex-a53",
+    "-C", "link-arg=--no-dynamic-linker",
+]
