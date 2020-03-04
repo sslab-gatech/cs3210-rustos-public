@@ -5,7 +5,7 @@ SECTIONS {
   __text_beg = .;
 
   .text : {
-      *(.text.init) /* from init.S */
+      *(.text._start) /* from init.S */
       *(.text .text.* .gnu.linkonce.t*)
   }
 
