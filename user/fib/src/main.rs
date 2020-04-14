@@ -16,9 +16,13 @@ fn fib(n: u64) -> u64 {
 }
 
 fn main() {
-    println!("Started...");
+    let pid = getpid();
+    let beg = time();
+    println!("[{:02}] Started: {:?}", pid, beg);
 
     let rtn = fib(40);
 
-    println!("Ended: Result = {}", rtn);
+    let end = time();
+    println!("[{:02}] Ended: {:?}", pid, end);
+    println!("[{:02}] Result: {} ({:?})", pid, rtn, end - beg);
 }

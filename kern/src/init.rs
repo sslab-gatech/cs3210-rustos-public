@@ -8,6 +8,7 @@ mod panic;
 
 use crate::kmain;
 use crate::param::*;
+use crate::VMM;
 
 global_asm!(include_str!("init/vectors.s"));
 
@@ -19,6 +20,7 @@ global_asm!(include_str!("init/vectors.s"));
 // so, no debug build support!
 //
 
+/// Kernel entrypoint for core 0
 #[no_mangle]
 pub unsafe extern "C" fn _start() -> ! {
     if MPIDR_EL1.get_value(MPIDR_EL1::Aff0) == 0 {
@@ -106,4 +108,29 @@ unsafe fn kinit() -> ! {
     switch_to_el2();
     switch_to_el1();
     kmain();
+}
+
+/// Kernel entrypoint for core 1, 2, and 3
+#[no_mangle]
+pub unsafe extern "C" fn start2() -> ! {
+    // Lab 5 1.A
+    unimplemented!("start2")
+}
+
+unsafe fn kinit2() -> ! {
+    switch_to_el2();
+    switch_to_el1();
+    kmain2()
+}
+
+unsafe fn kmain2() -> ! {
+    // Lab 5 1.A
+    unimplemented!("kmain2")
+}
+
+/// Wakes up each app core by writing the address of `init::start2`
+/// to their spinning base and send event with `sev()`.
+pub unsafe fn initialize_app_cores() {
+    // Lab 5 1.A
+    unimplemented!("initialize_app_cores")
 }

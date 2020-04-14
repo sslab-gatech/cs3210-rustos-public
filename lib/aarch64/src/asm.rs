@@ -10,7 +10,6 @@ pub fn wfi() {
     unsafe { asm!("wfi" :::: "volatile") };
 }
 
-
 /// A NOOP that won't be optimized out.
 #[inline(always)]
 pub fn nop() {
@@ -19,8 +18,8 @@ pub fn nop() {
 
 /// Transition to a lower level
 #[inline(always)]
-pub fn eret() {
-    unsafe { asm!("eret" :::: "volatile") };
+pub unsafe fn eret() {
+    asm!("eret" :::: "volatile");
 }
 
 /// Instruction Synchronization Barrier
@@ -37,36 +36,70 @@ pub fn sev() {
 
 /// Enable (unmask) interrupts
 #[inline(always)]
-pub unsafe fn sti() {
-    asm!("msr DAIFClr, 0b0010"
+pub fn enable_irq_interrupt() {
+    unsafe {
+        asm!("msr DAIFClr, 0b0010"
          :
          :
          :
          : "volatile");
+    }
 }
 
 /// Disable (mask) interrupt
 #[inline(always)]
-pub unsafe fn cli() {
-    asm!("msr DAIFSet, 0b0010"
+pub fn disable_irq_interrupt() {
+    unsafe {
+        asm!("msr DAIFSet, 0b0010"
          :
          :
          :
          : "volatile");
-}
-
-/// Break with an immeidate
-#[macro_export]
-macro_rules! brk {
-    ($num:tt) => {
-        unsafe { asm!(concat!("brk ", stringify!($num)) :::: "volatile"); }
     }
 }
 
-/// Supervisor call with an immediate
-#[macro_export]
-macro_rules! svc {
-    ($num:tt) => {
-        unsafe { asm!(concat!("svc ", stringify!($num)) :::: "volatile"); }
+/// Enable (unmask) FIQ
+#[inline(always)]
+pub fn enable_fiq_interrupt() {
+    unsafe {
+        asm!("msr DAIFClr, 0b0001"
+         :
+         :
+         :
+         : "volatile");
+    }
+}
+
+/// Disable (mask) FIQ
+#[inline(always)]
+pub fn disable_fiq_interrupt() {
+    unsafe {
+        asm!("msr DAIFSet, 0b0001"
+         :
+         :
+         :
+         : "volatile");
+    }
+}
+
+pub fn get_interrupt_mask() -> u64 {
+    unsafe {
+        let mut mask: u64;
+        asm!("mrs $0, DAIF"
+         : "=r"(mask)
+         :
+         :
+         : "volatile");
+        mask
+    }
+}
+
+pub fn set_interrupt_mask(mask: u64) {
+    unsafe {
+        asm!("msr DAIF, $0"
+         :
+         : "r"(mask)
+         :
+         : "volatile");
     }
 }

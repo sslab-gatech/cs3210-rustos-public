@@ -30,8 +30,7 @@ pub enum OsError {
     IoErrorTimedOut = 105,
 
     InvalidSocket = 200,
-    SocketAlreadyOpen = 201,
-    InvalidPort = 202,
+    IllegalSocketOperation = 201,
 }
 
 impl core::convert::From<u64> for OsError {
@@ -53,8 +52,7 @@ impl core::convert::From<u64> for OsError {
             104 => OsError::IoErrorInvalidInput,
 
             200 => OsError::InvalidSocket,
-            201 => OsError::SocketAlreadyOpen,
-            202 => OsError::InvalidPort,
+            201 => OsError::IllegalSocketOperation,
 
             _ => OsError::Unknown,
         }
@@ -79,3 +77,53 @@ pub const NR_TIME: usize = 2;
 pub const NR_EXIT: usize = 3;
 pub const NR_WRITE: usize = 4;
 pub const NR_GETPID: usize = 5;
+pub const NR_WRITE_STR: usize = 6;
+
+#[derive(Clone, Copy, Debug)]
+pub struct SocketDescriptor(u64);
+
+impl SocketDescriptor {
+    pub fn raw(&self) -> u64 {
+        self.0
+    }
+}
+
+#[derive(Debug)]
+pub struct SocketStatus {
+    pub is_active: bool,
+    pub is_listening: bool,
+    pub can_send: bool,
+    pub can_recv: bool,
+}
+
+pub struct IpAddr {
+    pub ip: u32,
+    pub port: u16,
+}
+
+impl IpAddr {
+    pub fn new((ip1, ip2, ip3, ip4): (u8, u8, u8, u8), port: u16) -> Self {
+        IpAddr {
+            ip: u32::from_be_bytes([ip1, ip2, ip3, ip4]),
+            port,
+        }
+    }
+}
+
+impl fmt::Debug for IpAddr {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let bytes = self.ip.to_be_bytes();
+        write!(
+            f,
+            "IpAddr({}.{}.{}.{}:{})",
+            bytes[0], bytes[1], bytes[2], bytes[3], self.port
+        )
+    }
+}
+
+pub const NR_SOCK_CREATE: usize = 20;
+pub const NR_SOCK_STATUS: usize = 21;
+pub const NR_SOCK_CONNECT: usize = 22;
+pub const NR_SOCK_LISTEN: usize = 23;
+pub const NR_SOCK_SEND: usize = 24;
+pub const NR_SOCK_RECV: usize = 25;

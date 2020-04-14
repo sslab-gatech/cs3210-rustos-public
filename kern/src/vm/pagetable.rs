@@ -90,7 +90,7 @@ impl L3PageTable {
 #[repr(align(65536))]
 pub struct PageTable {
     pub l2: L2PageTable,
-    pub l3: [L3PageTable; 2],
+    pub l3: [L3PageTable; 3],
 }
 
 impl PageTable {
@@ -101,8 +101,7 @@ impl PageTable {
     }
 
     /// Returns the (L2index, L3index) extracted from the given virtual address.
-    /// Since we are only supporting 1GB virtual memory in this system, L2index
-    /// should be smaller than 2.
+    /// L2index should be smaller than the number of L3PageTable.
     ///
     /// # Panics
     ///
@@ -181,7 +180,7 @@ impl UserPageTable {
     /// TODO. use Result<T> and make it failurable
     /// TODO. use perm properly
     pub fn alloc(&mut self, va: VirtualAddr, _perm: PagePerm) -> &mut [u8] {
-        unimplemented!("alloc()");
+        unimplemented!("alloc()")
     }
 }
 

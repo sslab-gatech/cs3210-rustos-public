@@ -1,8 +1,10 @@
 use alloc::boxed::Box;
+use alloc::vec::Vec;
 use shim::io;
 use shim::path::Path;
 
 use aarch64;
+use smoltcp::socket::SocketHandle;
 
 use crate::param::*;
 use crate::process::{Stack, State};
@@ -24,6 +26,9 @@ pub struct Process {
     // pub vmap: Box<UserPageTable>,
     /// The scheduling state of the process.
     pub state: State,
+    // Lab 5 2.C
+    /// Socket handles held by the current process
+    // pub sockets: Vec<SocketHandle>,
 }
 
 impl Process {
@@ -36,8 +41,8 @@ impl Process {
         unimplemented!("Process::new()")
     }
 
-    /// Load a program stored in the given path by calling `do_load()` method.
-    /// Set trapframe `context` corresponding to the its page table.
+    /// Loads a program stored in the given path by calling `do_load()` method.
+    /// Sets trapframe `context` corresponding to its page table.
     /// `sp` - the address of stack top
     /// `elr` - the address of image base.
     /// `ttbr0` - the base address of kernel page table
@@ -50,7 +55,7 @@ impl Process {
 
         let mut p = Process::do_load(pn)?;
 
-        //FIXME: Set trapframe for the process.
+        // FIXME: Set trapframe for the process.
 
         Ok(p)
     }

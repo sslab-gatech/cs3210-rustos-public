@@ -11,5 +11,6 @@ authors = [
 edition = "2018"
 
 [dependencies]
+aarch64 = { path = "../aarch64" }
 volatile = { path = "../volatile" }
 shim = { path = "../shim", features = ["no_std"] }

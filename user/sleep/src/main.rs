@@ -1,5 +1,4 @@
 #![feature(asm)]
-
 #![no_std]
 #![no_main]
 
@@ -14,15 +13,15 @@ fn panic(_info: &PanicInfo) -> ! {
 pub extern "C" fn _start() -> ! {
     loop {
         let ms = 10000;
-        let error: u64;
-        let elapsed_ms: u64;
+        let _error: u64;
+        let _elapsed_ms: u64;
 
         unsafe {
             asm!("mov x0, $2
                   svc 1
                   mov $0, x0
                   mov $1, x7"
-                 : "=r"(elapsed_ms), "=r"(error)
+                 : "=r"(_elapsed_ms), "=r"(_error)
                  : "r"(ms)
                  : "x0", "x7"
                  : "volatile");

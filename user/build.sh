@@ -3,7 +3,7 @@
 IMG=fs.img
 MNT=mnt
 
-PROGS=(sleep fib)
+PROGS=(sleep fib echo)
 
 for d in ${PROGS[@]}; do
     (cd $d; make build)
@@ -16,8 +16,14 @@ LO=$(sudo losetup --show -f -P $IMG)
 LOP1=${LO}p1
 
 if [ ! -e $LOP1 ]; then
-    echo "[!] can't find the partition in $IMG"
-    sudo losetup -d $LO
+    PARTITIONS=$(lsblk --raw --output "MAJ:MIN" --noheadings ${LO} | tail -n +2)COUNTER=1
+    COUNTER=1
+    for i in $PARTITIONS; do
+        MAJ=$(echo $i | cut -d: -f1)
+        MIN=$(echo $i | cut -d: -f2)
+        if [ ! -e "${LO}p${COUNTER}" ]; then sudo mknod ${LO}p${COUNTER} b $MAJ $MIN; fi
+        COUNTER=$((COUNTER + 1))
+    done
 fi
 
 sudo mkfs.vfat -F32 $LOP1

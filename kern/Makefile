@@ -2,8 +2,8 @@ ROOT := $(shell git rev-parse --show-toplevel)
 
 KERN := kernel
 TARGET := target/aarch64-unknown-none/release/${KERN}
-SDCARD ?= $(ROOT)/ext/fat32-imgs/mock1.fat32.img
-# SDCARD ?= $(ROOT)/user/fs.img
+# SDCARD ?= $(ROOT)/ext/fat32-imgs/mock1.fat32.img
+SDCARD ?= $(ROOT)/user/fs.img
 OBJCPY := cargo objcopy -- --strip-all -O binary
 TTY_PATH := /dev/ttyUSB0
 QEMU_ARGS ?=
@@ -20,6 +20,14 @@ build:
 
 	@echo "+ Building build/$(KERN).bin [objcopy]"
 	@$(OBJCPY) $(TARGET) build/$(KERN).bin
+
+build-all:
+	@(cd ../ext/uspi/lib; make)
+	cp -f ../ext/uspi/lib/libuspi.a ./.cargo/
+	@(cd ../ext/uspi/env/lib; make)
+	cp -f ../ext/uspi/env/lib/libuspienv.a ./.cargo/
+	touch src/main.rs
+	make build
 
 check:
 	@cargo xcheck
