@@ -1,0 +1,19 @@
+CREDITS
+
+To whom
+For what
+
+Marco Maccaferri (macca)
+GamePad support
+Various advice and testing in other parts
+
+Jose Luis Sanchez
+Testing while fixing an USB freeze bug (taken from Circle)
+Spanish keymap (taken from Circle)
+
+Joshua Otto
+Providing support for framebuffers where pitch != width * bytes per pixel
+USB MIDI device class support
+
+Paolo Franchetti
+Suggesting improvements for the HID class device support and testing

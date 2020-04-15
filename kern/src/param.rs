@@ -31,7 +31,7 @@ pub const KERN_STACK_SIZE: usize = PAGE_SIZE;
 pub const TICK: Duration = Duration::from_secs(2);
 
 // Match this value with `HZ` in `timer.h`
-pub const USPI_TIMER_HZ: usize = 1;
+pub const USPI_TIMER_HZ: usize = 10;
 
 // Match this value with `USPI_FRAME_BUFFER_SIZE` in `uspi.h`
 pub const USPI_FRAME_BUFFER_SIZE: u32 = 1600;
