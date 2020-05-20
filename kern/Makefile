@@ -2,7 +2,6 @@ ROOT := $(shell git rev-parse --show-toplevel)
 
 KERN := kernel
 TARGET := target/aarch64-unknown-none/release/${KERN}
-SDCARD := $(ROOT)/ext/fat32-imgs/mock1.fat32.img
 OBJCPY := cargo objcopy -- --strip-all -O binary
 TTY_PATH := /dev/ttyUSB0
 
@@ -23,7 +22,7 @@ check:
 	@cargo xcheck
 
 qemu: build
-	./qemu.sh build/$(KERN).bin -drive file=$(SDCARD),format=raw,if=sd
+	./qemu.sh build/$(KERN).bin
 
 transmit: build
 	@echo "+ Transmitting build/$(KERN).bin to $(TTY_PATH)"
