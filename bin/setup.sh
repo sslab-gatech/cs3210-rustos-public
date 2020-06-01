@@ -4,7 +4,8 @@ set -e
 
 TOP=$(git rev-parse --show-toplevel)
 BIN=$TOP/bin
-VER=nightly-2019-07-01 
+DEP=$TOP/.dep
+VER=nightly-2019-07-01
 PROJ_PKG=(build-essential
      python3
      socat
@@ -38,7 +39,20 @@ fi
 rustup default $VER
 rustup component add rust-src llvm-tools-preview clippy
 
-cargo install -f cargo-xbuild
-cargo install -f cargo-binutils
+# cargo install -f cargo-binutils --version 0.1.7 --locked
+
+# install cargo xbuild
+mkdir -p $DEP
+pushd $DEP
+if ! [ -e cargo-xbuild ]; then
+  git clone https://github.com/rust-osdev/cargo-xbuild
+  pushd cargo-xbuild
+  git checkout v0.5.12
+  git cherry-pick b24c849028eb7da2375288b1b8ab6a7538162bd7
+  popd
+fi
+cargo install -f --path cargo-xbuild --locked
+popd
+
 
 echo "[!] Please add '$HOME/.cargo/bin' in your PATH"
