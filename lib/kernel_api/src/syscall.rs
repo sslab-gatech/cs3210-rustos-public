@@ -48,6 +48,7 @@ pub fn exit() -> ! {
 
 pub fn write(b: u8) {
     unimplemented!("write()")
+}
 
 pub fn write_str(msg: &str) {
     unimplemented!("write_str()")
