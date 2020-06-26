@@ -53,5 +53,12 @@ fi
 cargo install -f --path cargo-xbuild --locked
 popd
 
+# install cargo binutils
+pushd $DEP
+if ! [ -e cargo-objcopy ]; then
+  git clone https://github.com/man9ourah/cargo-binutils.git
+  cargo install -f --path cargo-binutils --locked
+fi
+popd
 
 echo "[!] Please add '$HOME/.cargo/bin' in your PATH"
